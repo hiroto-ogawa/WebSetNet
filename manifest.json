@@ -1,0 +1,28 @@
+{
+  "name": "My Extension",
+  "description": "My Extension",
+  "version": "1.0",
+  "manifest_version": 3,
+  "permissions": [
+    "tabs", "storage", "contextMenus", "activeTab", "scripting"
+  ],
+
+  "host_permissions":[
+    "http://data.phishtank.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "bg.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ]
+}

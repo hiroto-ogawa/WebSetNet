@@ -1,6 +1,6 @@
 function submit(name) {
     chrome.runtime.sendMessage({name: name}, function(res){
-        document.querySelector("#updated_time").innerText = `Last Update Date: ${res.last_update_date || 'none'}`;
+        document.querySelector("#updated_time").innerText = `Last Update Date: ${res.last_update_date || "none"}`;
     });
 }
 

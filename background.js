@@ -30,7 +30,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         case 'checkURL':
             chrome.storage.local.get('urls', (invalid_url) => {
                 // let parsed_url = domainParser(msg.url);
-                for (let i = 0; i < invalid_url?.urls.length; i++) {
+                for (let i = 0; i < invalid_url.urls.length; i++) {
                     if(invalid_url.urls[i] === msg.url){
                         sendResponse('detected')
                         break

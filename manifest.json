@@ -1,20 +1,24 @@
 {
-  "name": "My Extension",
-  "description": "My Extension",
+  "name": "WebNetSet",
+  "description": "Google Chrome extension for detecting phishing site",
   "version": "1.0",
   "manifest_version": 3,
   "permissions": [
-    "tabs", "storage", "contextMenus", "activeTab", "scripting"
+    "tabs", "storage", "contextMenus", "activeTab", "scripting", "management"
   ],
-
   "host_permissions":[
     "http://data.phishtank.com/*"
   ],
+  "icons": {
+    "16": "resources/img/web_16.png",
+    "48": "resources/img/web_48.png",
+    "128": "resources/img/web_128.png"
+} ,
   "action": {
     "default_popup": "popup.html"
   },
   "background": {
-    "service_worker": "bg.js"
+    "service_worker": "background.js"
   },
   "content_scripts": [
     {

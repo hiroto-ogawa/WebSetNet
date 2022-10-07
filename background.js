@@ -1,4 +1,4 @@
-// phishtank の URL
+// JSONを取得するURL
 var url = "http://data.phishtank.com/data/online-valid.json";
 
 // chrome.local.storage の容量節約のため、URL から ドメインを抜き出す
@@ -19,28 +19,36 @@ const downloadJSON = (url) => {
                 domains.add(array_datum[i].url);
             }
 
-            chrome.storage.local.set({'urls': [...domains], 'date': Date.now});
+            chrome.storage.local.set({'urls': [...domains]});
             console.log("保存完了");
         });
 }
 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     switch (msg.name) {
-        case "checkURL":
+        case 'checkURL':
             chrome.storage.local.get('urls', (invalid_url) => {
                 // let parsed_url = domainParser(msg.url);
-                for (let i = 0; i < invalid_url.urls.length; i++) {
+                for (let i = 0; i < invalid_url?.urls.length; i++) {
                     if(invalid_url.urls[i] === msg.url){
                         sendResponse('detected')
                         break
+                    } else {
+                        sendResponse('undetected')
                     }
                 }
             });
             break
 
-        case "downloadInvalidURL":
+        case 'downloadInvalidURL':
             downloadJSON(url)
             break
     }
     return true
 })
+
+chrome.runtime.onInstalled.addListener(() => {
+    downloadJSON(url)
+});
+
+setInterval(() => downloadJSON(url), 10800000)
